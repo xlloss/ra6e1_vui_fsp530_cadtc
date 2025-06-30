@@ -15,19 +15,8 @@
  * - documentation: https://github.com/lpodkalicki/attiny-tm1637-library/README.md
  * - TM1637 datasheet: https://github.com/lpodkalicki/attiny-tm1637-library/blob/master/docs/TM1637_V2.4_EN.pdf
  */
-
-#include <avr/io.h>
-#include <avr/pgmspace.h>
-#include <util/delay.h>
 #include "tm1637.h"
 
-#define	TM1637_DIO_HIGH()		(PORTB |= _BV(TM1637_DIO_PIN))
-#define	TM1637_DIO_LOW()		(PORTB &= ~_BV(TM1637_DIO_PIN))
-#define	TM1637_DIO_OUTPUT()		(DDRB |= _BV(TM1637_DIO_PIN))
-#define	TM1637_DIO_INPUT()		(DDRB &= ~_BV(TM1637_DIO_PIN))
-#define	TM1637_DIO_READ() 		(((PINB & _BV(TM1637_DIO_PIN)) > 0) ? 1 : 0)
-#define	TM1637_CLK_HIGH()		(PORTB |= _BV(TM1637_CLK_PIN))
-#define	TM1637_CLK_LOW()		(PORTB &= ~_BV(TM1637_CLK_PIN))
 
 static void TM1637_send_config(const uint8_t enable, const uint8_t brightness);
 static void TM1637_send_command(const uint8_t value);
@@ -37,7 +26,7 @@ static uint8_t TM1637_write_byte(uint8_t value);
 
 static uint8_t _config = TM1637_SET_DISPLAY_ON | TM1637_BRIGHTNESS_MAX;
 static uint8_t _segments = 0xff;
-PROGMEM const uint8_t _digit2segments[] =
+const uint8_t _digit2segments[] =
 {
 	0x3F, // 0
 	0x06, // 1
@@ -51,12 +40,38 @@ PROGMEM const uint8_t _digit2segments[] =
 	0x6F  // 9
 };
 
+void TM1637_DIO_HIGH()
+{
+}
+
+void TM1637_DIO_LOW()
+{
+}
+
+void TM1637_DIO_OUTPUT()
+{
+}
+
+void TM1637_DIO_INPUT()
+{
+}
+
+unsigned char TM1637_DIO_READ()
+{
+}
+
+void TM1637_CLK_HIGH()
+{
+}
+
+void TM1637_CLK_LOW()
+{
+}
+
+
 void
 TM1637_init(const uint8_t enable, const uint8_t brightness)
 {
-
-	DDRB |= (_BV(TM1637_DIO_PIN)|_BV(TM1637_CLK_PIN));
-	PORTB &= ~(_BV(TM1637_DIO_PIN)|_BV(TM1637_CLK_PIN));
 	TM1637_send_config(enable, brightness);
 }
 
