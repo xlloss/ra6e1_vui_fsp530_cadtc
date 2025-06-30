@@ -898,7 +898,6 @@
       <configSetting altId="gpt6.gtioc6a.p400" configurationId="gpt6.gtioc6a"/>
       <configSetting altId="gpt6.mode.gtiocaorgtiocb.free" configurationId="gpt6.mode"/>
       <configSetting altId="icu.irq4_dash_ds.p402" configurationId="icu.irq4_dash_ds"/>
-      <configSetting altId="icu.irq5.p302" configurationId="icu.irq5"/>
       <configSetting altId="icu.mode.custom.free" configurationId="icu.mode"/>
       <configSetting altId="jtag_fslash_swd.mode.swd.free" configurationId="jtag_fslash_swd.mode"/>
       <configSetting altId="jtag_fslash_swd.swclk.p300" configurationId="jtag_fslash_swd.swclk"/>
@@ -949,11 +948,12 @@
       <configSetting altId="p300.gpio_mode.gpio_mode_peripheral" configurationId="p300.gpio_mode"/>
       <configSetting altId="p301.gpt4.gtioc4b" configurationId="p301"/>
       <configSetting altId="p301.gpio_mode.gpio_mode_peripheral" configurationId="p301.gpio_mode"/>
-      <configSetting altId="p302.icu.irq5" configurationId="p302"/>
-      <configSetting altId="p302.gpio_irq.gpio_irq_enabled" configurationId="p302.gpio_irq"/>
-      <configSetting altId="p302.gpio_mode.gpio_mode_irq" configurationId="p302.gpio_mode"/>
-      <configSetting altId="p303.input" configurationId="p303"/>
-      <configSetting altId="p303.gpio_mode.gpio_mode_in" configurationId="p303.gpio_mode"/>
+      <configSetting altId="p302.output.high" configurationId="p302"/>
+      <configSetting altId="p302.gpio_speed.gpio_speed_h" configurationId="p302.gpio_drivecapacity"/>
+      <configSetting altId="p302.gpio_mode.gpio_mode_out.high" configurationId="p302.gpio_mode"/>
+      <configSetting altId="p303.output.high" configurationId="p303"/>
+      <configSetting altId="p303.gpio_speed.gpio_speed_h" configurationId="p303.gpio_drivecapacity"/>
+      <configSetting altId="p303.gpio_mode.gpio_mode_out.high" configurationId="p303.gpio_mode"/>
       <configSetting altId="p304.input" configurationId="p304"/>
       <configSetting altId="p304.gpio_mode.gpio_mode_in" configurationId="p304.gpio_mode"/>
       <configSetting altId="p400.gpt6.gtioc6a" configurationId="p400"/>
