@@ -22,11 +22,12 @@
 #include <stdint.h>
 
 // Main Settings
-#define	TM1637_DIO_PIN			BSP_IO_PORT_03_PIN_03
-#define	TM1637_CLK_PIN			BSP_IO_PORT_03_PIN_04
+#define	TM1637_DIO_PIN			BSP_IO_PORT_03_PIN_02
+#define	TM1637_CLK_PIN			BSP_IO_PORT_03_PIN_03
 #define	TM1637_DELAY_US			(5)
 #define	TM1637_BRIGHTNESS_MAX		(7)
 #define	TM1637_POSITION_MAX		(4)
+#define TM1637_DELAY_US_F(n)			(R_BSP_SoftwareDelay(n, BSP_DELAY_UNITS_MICROSECONDS))
 
 // TM1637 commands
 #define	TM1637_CMD_SET_DATA		0x40
@@ -46,6 +47,8 @@
 #define	TM1637_SET_DISPLAY_ON		0x08 // on
 
 
+void TM1637_DIO_HIGH();
+void TM1637_CLK_LOW();
 /**
  * Initialize TM1637 display driver.
  * Clock pin (TM1637_CLK_PIN) and data pin (TM1637_DIO_PIN)

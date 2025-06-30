@@ -43,30 +43,40 @@ const uint8_t _digit2segments[] =
 
 void TM1637_DIO_HIGH()
 {
+	R_IOPORT_PinWrite(&g_ioport_ctrl, TM1637_DIO_PIN, 1);
 }
 
 void TM1637_DIO_LOW()
 {
+	R_IOPORT_PinWrite(&g_ioport_ctrl, TM1637_DIO_PIN, 0);
 }
 
 void TM1637_DIO_OUTPUT()
 {
+	R_IOPORT_PinCfg(&g_ioport_ctrl, TM1637_DIO_PIN, ((uint32_t) IOPORT_CFG_PORT_DIRECTION_OUTPUT));
 }
 
 void TM1637_DIO_INPUT()
 {
+	R_IOPORT_PinCfg(&g_ioport_ctrl, TM1637_DIO_PIN, ((uint32_t) IOPORT_CFG_PORT_DIRECTION_INPUT));
 }
 
-unsigned char TM1637_DIO_READ()
+bsp_io_level_t TM1637_DIO_READ()
 {
+	bsp_io_level_t io_val;
+
+	R_IOPORT_PinRead(&g_ioport_ctrl, TM1637_DIO_PIN, &io_val);
+	return io_val;
 }
 
 void TM1637_CLK_HIGH()
 {
+	R_IOPORT_PinWrite(&g_ioport_ctrl, TM1637_CLK_PIN, 1);
 }
 
 void TM1637_CLK_LOW()
 {
+	R_IOPORT_PinWrite(&g_ioport_ctrl, TM1637_CLK_PIN, 0);
 }
 
 
@@ -105,7 +115,7 @@ TM1637_display_segments(const uint8_t position, const uint8_t segments)
 void
 TM1637_display_digit(const uint8_t position, const uint8_t digit)
 {
-	uint8_t segments = (digit < 10 ? pgm_read_byte_near((uint8_t *)&_digit2segments + digit) : 0x00);
+	uint8_t segments = (digit < 10 ? _digit2segments[digit] : 0x00);
 
 	if (position == 0x01) {
 		segments = segments | (_segments & 0x80);
@@ -162,7 +172,7 @@ TM1637_start(void)
 
 	TM1637_DIO_HIGH();
 	TM1637_CLK_HIGH();
-	_delay_us(TM1637_DELAY_US);
+	TM1637_DELAY_US_F(TM1637_DELAY_US);
 	TM1637_DIO_LOW();
 }
 
@@ -171,13 +181,13 @@ TM1637_stop(void)
 {
 
 	TM1637_CLK_LOW();
-	_delay_us(TM1637_DELAY_US);
+	TM1637_DELAY_US_F(TM1637_DELAY_US);
 
 	TM1637_DIO_LOW();
-	_delay_us(TM1637_DELAY_US);
+	TM1637_DELAY_US_F(TM1637_DELAY_US);
 
 	TM1637_CLK_HIGH();
-	_delay_us(TM1637_DELAY_US);
+	TM1637_DELAY_US_F(TM1637_DELAY_US);
 
 	TM1637_DIO_HIGH();
 }
@@ -189,7 +199,7 @@ TM1637_write_byte(uint8_t value)
 
 	for (i = 0; i < 8; ++i, value >>= 1) {
 		TM1637_CLK_LOW();
-		_delay_us(TM1637_DELAY_US);
+		TM1637_DELAY_US_F(TM1637_DELAY_US);
 
 		if (value & 0x01) {
 			TM1637_DIO_HIGH();
@@ -198,26 +208,26 @@ TM1637_write_byte(uint8_t value)
 		}
 
 		TM1637_CLK_HIGH();
-		_delay_us(TM1637_DELAY_US);
+		TM1637_DELAY_US_F(TM1637_DELAY_US);
 	}
 
 	TM1637_CLK_LOW();
 	TM1637_DIO_INPUT();
 	TM1637_DIO_HIGH();
-	_delay_us(TM1637_DELAY_US);
+	TM1637_DELAY_US_F(TM1637_DELAY_US);
 
 	ack = TM1637_DIO_READ();
 	if (ack) {
 		TM1637_DIO_OUTPUT();
 		TM1637_DIO_LOW();
 	}
-	_delay_us(TM1637_DELAY_US);
+	TM1637_DELAY_US_F(TM1637_DELAY_US);
 
 	TM1637_CLK_HIGH();
-	_delay_us(TM1637_DELAY_US);
+	TM1637_DELAY_US_F(TM1637_DELAY_US);
 
 	TM1637_CLK_LOW();
-	_delay_us(TM1637_DELAY_US);
+	TM1637_DELAY_US_F(TM1637_DELAY_US);
 
 	TM1637_DIO_OUTPUT();
 
