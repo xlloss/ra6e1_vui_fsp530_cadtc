@@ -967,10 +967,6 @@
       <configSetting altId="p408.gpio_mode.gpio_mode_peripheral" configurationId="p408.gpio_mode"/>
       <configSetting altId="p409.sci3.txd3" configurationId="p409"/>
       <configSetting altId="p409.gpio_mode.gpio_mode_peripheral" configurationId="p409.gpio_mode"/>
-      <configSetting altId="p410.sci3.sck3" configurationId="p410"/>
-      <configSetting altId="p410.gpio_mode.gpio_mode_peripheral" configurationId="p410.gpio_mode"/>
-      <configSetting altId="p411.sci3.cts_rts3" configurationId="p411"/>
-      <configSetting altId="p411.gpio_mode.gpio_mode_peripheral" configurationId="p411.gpio_mode"/>
       <configSetting altId="p500.output.high" configurationId="p500"/>
       <configSetting altId="p500.gpio_mode.gpio_mode_out.high" configurationId="p500.gpio_mode"/>
       <configSetting altId="qspi.mode.fastreadquadi_fslash_o.free" configurationId="qspi.mode"/>
@@ -980,10 +976,8 @@
       <configSetting altId="qspi.qio3.p103" configurationId="qspi.qio3"/>
       <configSetting altId="qspi.qspclk.p100" configurationId="qspi.qspclk"/>
       <configSetting altId="qspi.qssl.p112" configurationId="qspi.qssl"/>
-      <configSetting altId="sci3.cts_rts3.p411" configurationId="sci3.cts_rts3"/>
-      <configSetting altId="sci3.mode.simplespi.free" configurationId="sci3.mode"/>
+      <configSetting altId="sci3.mode.simplei2c.free" configurationId="sci3.mode"/>
       <configSetting altId="sci3.rxd3.p408" configurationId="sci3.rxd3"/>
-      <configSetting altId="sci3.sck3.p410" configurationId="sci3.sck3"/>
       <configSetting altId="sci3.txd3.p409" configurationId="sci3.txd3"/>
       <configSetting altId="sci4.mode.asynchronousuart.free" configurationId="sci4.mode"/>
       <configSetting altId="sci4.rxd4.p206" configurationId="sci4.rxd4"/>
