@@ -188,7 +188,11 @@ void voice_main(void)
 {
     int nRet = true;
 
+    TM1637_init(1/*enable*/, 1/*brightness*/);
+    TM1637_clear();
+
     voice_init();
+    AHT10_Reset();
 
     while (true == nRet)
     {
