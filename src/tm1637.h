@@ -106,4 +106,5 @@ void TM1637_display_colon(const uint8_t value);
  */
 void TM1637_clear(void);
 
+unsigned int dec_to_bcd(unsigned int dec);
 #endif	/* !_ATTINY_TM1637_H_ */

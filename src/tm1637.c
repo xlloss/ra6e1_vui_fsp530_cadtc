@@ -233,3 +233,15 @@ TM1637_write_byte(uint8_t value)
 
 	return ack;
 }
+
+unsigned int dec_to_bcd(unsigned int dec)
+{
+    unsigned int i, sum = 0;
+
+    for (i = 0; dec > 0; i++)
+    {
+        sum |= (dec % 10) << (i * 4);
+        dec = dec / 10;
+    }
+    return sum;
+}
