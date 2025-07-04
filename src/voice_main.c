@@ -631,15 +631,15 @@ static bool voice_loop(void)
 
         switch (nMapID)
         {
-        case 100:
+        case ID_STAGE_1_0:
             vui_trigger_behave();
             break;
 
-        case 200:
+        case ID_STAGE_2_0:
             show_temp();
             break;
 
-        case 300:
+        case ID_STAGE_2_1:
             show_hum();
             break;
     #if defined(SUPPORT_VOICE_TAG)

@@ -169,6 +169,9 @@
 /*******************************************************************************
  Exported global variables
 *******************************************************************************/
+#define ID_STAGE_1_0 100
+#define ID_STAGE_2_0 200
+#define ID_STAGE_2_1 300
 
 /*******************************************************************************
  Exported global functions
@@ -182,7 +185,9 @@ void voice_main(void);
 void ToggleLED(bsp_io_port_pin_t oLED);
 void TurnOnLED(bsp_io_port_pin_t oLED);
 void TurnOffLED(bsp_io_port_pin_t oLED);
-
+void show_hum();
+void show_temp();
+void vui_trigger_behave();
 #ifdef __cplusplus
 }
 #endif

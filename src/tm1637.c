@@ -15,7 +15,6 @@
  * - documentation: https://github.com/lpodkalicki/attiny-tm1637-library/README.md
  * - TM1637 datasheet: https://github.com/lpodkalicki/attiny-tm1637-library/blob/master/docs/TM1637_V2.4_EN.pdf
  */
-#include "hal_data.h"
 #include "tm1637.h"
 
 

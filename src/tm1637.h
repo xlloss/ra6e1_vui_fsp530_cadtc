@@ -18,7 +18,7 @@
 
 #ifndef	_ATTINY_TM1637_H_
 #define	_ATTINY_TM1637_H_
-
+#include "hal_data.h"
 #include <stdint.h>
 
 // Main Settings
@@ -106,5 +106,10 @@ void TM1637_display_colon(const uint8_t value);
  */
 void TM1637_clear(void);
 
+void TM1637_CLK_HIGH();
+void TM1637_DIO_INPUT();
+void TM1637_DIO_LOW();
+void TM1637_DIO_OUTPUT();
+bsp_io_level_t TM1637_DIO_READ();
 unsigned int dec_to_bcd(unsigned int dec);
 #endif	/* !_ATTINY_TM1637_H_ */
