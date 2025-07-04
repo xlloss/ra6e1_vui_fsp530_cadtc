@@ -37,7 +37,7 @@
 
 // Definition for support function
 #define SUPPORT_SPEEX_PLAY                               // To decode Speex compressed audio and play it after getting the result.
-//#define SUPPORT_RECOG_TWO_MODEL                          // To recognize two model by two DSpotter instance at the same time, the CPU/RAM/Model_ROM usage will double.
+#define SUPPORT_RECOG_TWO_MODEL                          // To recognize two model by two DSpotter instance at the same time, the CPU/RAM/Model_ROM usage will double.
 #define SUPPORT_VOICE_TAG                                // To support voice tag function.
 #define SUPPORT_UART_DUMP_RECORD                         // Transfer record data through UART(460800 bps) to PC CybSerialRecorder.
 
