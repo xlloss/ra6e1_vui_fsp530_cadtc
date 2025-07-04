@@ -5,6 +5,6 @@
 .global uCYModel2End
 
 uCYModel2Begin:
-.incbin "../src/Model/SmartHome_pack_withTxtAndTri.bin"
+.incbin "../src/Model/Slash_demo_english_temp_hum_pack_WithTxtAndTri.bin"
 uCYModel2End:
 
