@@ -121,6 +121,7 @@ TM1637_display_digit(const uint8_t position, const uint8_t digit)
 		_segments = segments;
 	}
 
+	segments &= ~0x80;
 	TM1637_display_segments(position, segments);
 }
 
