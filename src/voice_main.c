@@ -273,6 +273,15 @@ static void voice_init(void)
 /*******************************************************************************
  End of function voice_init
 *******************************************************************************/
+void loop_disp()
+{
+    int rh;
+    static unsigned char index = 0;
+
+    TM1637_clear();
+    TM1637_display_digit(index, 0);
+    index = (index >= 3) ? 0 : index + 1;
+}
 
 void vui_trigger_behave()
 {
@@ -318,6 +327,7 @@ void show_hum()
 * Arguments       : none
 * Return value    : none
 *******************************************************************************/
+int     trigger_enable = 0;
 static bool voice_loop(void)
 {
     short   saRecordSample[RECORD_FRAME_SAMPLES];
@@ -328,7 +338,6 @@ static bool voice_loop(void)
     static  int s_nLedTurnOnCount = 0;
     static  int s_nCommandRecordSample = 0;
     static  int s_nCommandRecognizeLimit = COMMAND_STAGE_TIME_MIN;
-
 #ifdef SUPPORT_VOICE_TAG
     if (g_bVoiceTagButtonPressed)
     {
@@ -361,6 +370,8 @@ static bool voice_loop(void)
     if (g_nRecordFrameCount++ % 100 == 0)
     {
         DBG_UART_TRACE(".");
+        if (!trigger_enable)
+            loop_disp();
         TurnOffLED(LED_B);
     }
 
@@ -634,14 +645,17 @@ static bool voice_loop(void)
         switch (nMapID)
         {
         case ID_STAGE_1_0:
+            trigger_enable = 1;
             vui_trigger_behave();
             break;
 
         case ID_STAGE_2_0:
+            trigger_enable = 1;
             show_temp();
             break;
 
         case ID_STAGE_2_1:
+            trigger_enable = 1;
             show_hum();
             break;
     #if defined(SUPPORT_VOICE_TAG)
@@ -693,6 +707,7 @@ static bool voice_loop(void)
             #ifdef SUPPORT_RECOG_TWO_MODEL
                 InitDSpotter(g_hCybModel2, GROUP_INDEX_TRIGGER, g_byaDSpotterMem2, sizeof(g_byaDSpotterMem2), &g_hDSpotter2, TRUE);
             #endif
+                trigger_enable = 0;
             }
         }
         else if (g_nActiveGroupIndex == GROUP_INDEX_COMMAND)
@@ -720,6 +735,7 @@ static bool voice_loop(void)
             #ifdef SUPPORT_RECOG_TWO_MODEL
                 SelectGroupModel(g_hCybModel2, GROUP_INDEX_TRIGGER, g_hDSpotter2, TRUE);
             #endif
+                trigger_enable = 0;
             }
         }
     }
