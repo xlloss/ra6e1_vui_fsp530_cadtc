@@ -914,12 +914,8 @@
       <configSetting altId="dac120.mode.enabled.free" configurationId="dac120.mode"/>
       <configSetting altId="gpt1.gtioc1a.p105" configurationId="gpt1.gtioc1a"/>
       <configSetting altId="gpt1.mode.gtiocaorgtiocb.free" configurationId="gpt1.mode"/>
-      <configSetting altId="gpt2.gtioc2a.p113" configurationId="gpt2.gtioc2a"/>
-      <configSetting altId="gpt2.mode.gtiocaorgtiocb.free" configurationId="gpt2.mode"/>
       <configSetting altId="gpt4.gtioc4b.p301" configurationId="gpt4.gtioc4b"/>
       <configSetting altId="gpt4.mode.gtiocaorgtiocb.free" configurationId="gpt4.mode"/>
-      <configSetting altId="gpt6.gtioc6a.p400" configurationId="gpt6.gtioc6a"/>
-      <configSetting altId="gpt6.mode.gtiocaorgtiocb.free" configurationId="gpt6.mode"/>
       <configSetting altId="icu.irq4_dash_ds.p402" configurationId="icu.irq4_dash_ds"/>
       <configSetting altId="icu.mode.custom.free" configurationId="icu.mode"/>
       <configSetting altId="jtag_fslash_swd.mode.swd.free" configurationId="jtag_fslash_swd.mode"/>
@@ -956,8 +952,8 @@
       <configSetting altId="p111.gpio_mode.gpio_mode_peripheral" configurationId="p111.gpio_mode"/>
       <configSetting altId="p112.qspi.qssl" configurationId="p112"/>
       <configSetting altId="p112.gpio_mode.gpio_mode_peripheral" configurationId="p112.gpio_mode"/>
-      <configSetting altId="p113.gpt2.gtioc2a" configurationId="p113"/>
-      <configSetting altId="p113.gpio_mode.gpio_mode_peripheral" configurationId="p113.gpio_mode"/>
+      <configSetting altId="p113.output.high" configurationId="p113"/>
+      <configSetting altId="p113.gpio_mode.gpio_mode_out.high" configurationId="p113.gpio_mode"/>
       <configSetting altId="p205.spi0.ssla0" configurationId="p205"/>
       <configSetting altId="p205.gpio_irq.gpio_irq_enabled" configurationId="p205.gpio_irq"/>
       <configSetting altId="p205.gpio_mode.gpio_mode_peripheral" configurationId="p205.gpio_mode"/>
@@ -979,8 +975,8 @@
       <configSetting altId="p303.gpio_mode.gpio_mode_out.high" configurationId="p303.gpio_mode"/>
       <configSetting altId="p304.input" configurationId="p304"/>
       <configSetting altId="p304.gpio_mode.gpio_mode_in" configurationId="p304.gpio_mode"/>
-      <configSetting altId="p400.gpt6.gtioc6a" configurationId="p400"/>
-      <configSetting altId="p400.gpio_mode.gpio_mode_peripheral" configurationId="p400.gpio_mode"/>
+      <configSetting altId="p400.output.high" configurationId="p400"/>
+      <configSetting altId="p400.gpio_mode.gpio_mode_out.high" configurationId="p400.gpio_mode"/>
       <configSetting altId="p402.icu.irq4_dash_ds" configurationId="p402"/>
       <configSetting altId="p402.gpio_irq.gpio_irq_enabled" configurationId="p402.gpio_irq"/>
       <configSetting altId="p402.gpio_mode.gpio_mode_irq" configurationId="p402.gpio_mode"/>
