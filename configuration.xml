@@ -583,7 +583,7 @@
     <module id="module.driver.i2c_on_sci_i2c.675997070">
       <property id="module.driver.i2c.name" value="g_i2c3"/>
       <property id="module.driver.i2c.channel" value="3"/>
-      <property id="module.driver.i2c.slave" value="0x00"/>
+      <property id="module.driver.i2c.slave" value="0x38"/>
       <property id="module.driver.i2c.addr_mode" value="module.driver.i2c.addr_mode.addr_mode_7bit"/>
       <property id="module.driver.i2c.rate" value="module.driver.i2c.rate.rate_standard"/>
       <property id="module.driver.i2c.sda_delay" value="300"/>
