@@ -5,6 +5,6 @@
 .global uCYModel1End
 
 uCYModel1Begin:
-.incbin "../src/Model/HiRenesas_OpenCamera_pack_WithTxtAndTri.bin"
+.incbin "../src/Model/Slash_Test_pack_WithTxtAndTri.bin"
 uCYModel1End:
 
