@@ -274,6 +274,42 @@ static void voice_init(void)
  End of function voice_init
 *******************************************************************************/
 
+void vui_trigger_behave()
+{
+    TM1637_clear();
+    TM1637_display_digit(0, 0);
+    TM1637_display_digit(1, 0);
+    TM1637_display_digit(2, 0);
+    TM1637_display_digit(3, 0);
+    R_BSP_SoftwareDelay(500, BSP_DELAY_UNITS_MILLISECONDS);
+    TM1637_clear();
+    R_BSP_SoftwareDelay(500, BSP_DELAY_UNITS_MILLISECONDS);
+    TM1637_display_digit(0, 0);
+    TM1637_display_digit(1, 0);
+    TM1637_display_digit(2, 0);
+    TM1637_display_digit(3, 0);
+}
+
+void show_temp()
+{
+    int temp;   
+
+    temp = AHT10_Read_Temp();
+    TM1637_display_digit(0, (uint8_t)(dec_to_bcd(temp) & 0xF0) >> 4);
+    TM1637_display_digit(1, (uint8_t)(dec_to_bcd(temp) & 0x0F));
+    TM1637_display_segments(3, 0x39);
+}
+
+void show_hum()
+{
+    int rh;   
+
+    rh = AHT10_Read_Hum();
+    TM1637_display_digit(0, (uint8_t)(dec_to_bcd(rh) & 0xF0) >> 4);
+    TM1637_display_digit(1, (uint8_t)(dec_to_bcd(rh) & 0x0F));
+    TM1637_display_segments(2, 0x77);
+    TM1637_display_segments(3, 0x76);
+}
 /*******************************************************************************
 * Function Name   : voice_loop
 * Description     : Voice application process
@@ -595,9 +631,16 @@ static bool voice_loop(void)
 
         switch (nMapID)
         {
-        case 0:
-        case 1:
-            //user's application
+        case 100:
+            vui_trigger_behave();
+            break;
+
+        case 200:
+            show_temp();
+            break;
+
+        case 300:
+            show_hum();
             break;
     #if defined(SUPPORT_VOICE_TAG)
         case DELETE_ALL_VOICE_TAG_ID:
