@@ -988,8 +988,10 @@
       <configSetting altId="p407.gpio_mode.gpio_mode_peripheral" configurationId="p407.gpio_mode"/>
       <configSetting altId="p408.sci3.rxd3" configurationId="p408"/>
       <configSetting altId="p408.gpio_mode.gpio_mode_peripheral" configurationId="p408.gpio_mode"/>
+      <configSetting altId="p408.gpio_otype.gpio_otype_n_ch_od" configurationId="p408.gpio_otype"/>
       <configSetting altId="p409.sci3.txd3" configurationId="p409"/>
       <configSetting altId="p409.gpio_mode.gpio_mode_peripheral" configurationId="p409.gpio_mode"/>
+      <configSetting altId="p409.gpio_otype.gpio_otype_n_ch_od" configurationId="p409.gpio_otype"/>
       <configSetting altId="p500.output.high" configurationId="p500"/>
       <configSetting altId="p500.gpio_mode.gpio_mode_out.high" configurationId="p500.gpio_mode"/>
       <configSetting altId="qspi.mode.fastreadquadi_fslash_o.free" configurationId="qspi.mode"/>
