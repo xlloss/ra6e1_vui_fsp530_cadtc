@@ -69,7 +69,7 @@ int AHT10_Read_Hum(void)
   buffer_transmission[1] = AHT10_DATA_MEASURMENT_CMD;
   buffer_transmission[2] = AHT10_DATA_NOP;
   AHT10_I2C_Send(buffer_transmission, 3);
-  AHT10_I2C_Delay(10);
+  AHT10_I2C_Delay(200);
   size = sizeof(buffer_read) / sizeof(uint8_t);
   AHT10_I2C_Receive(buffer_read, size);
   // 20-bit raw temperature data
