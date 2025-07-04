@@ -294,6 +294,7 @@ void show_temp()
 {
     int temp;   
 
+    TM1637_clear();
     temp = AHT10_Read_Temp();
     TM1637_display_digit(0, (uint8_t)(dec_to_bcd(temp) & 0xF0) >> 4);
     TM1637_display_digit(1, (uint8_t)(dec_to_bcd(temp) & 0x0F));
@@ -304,6 +305,7 @@ void show_hum()
 {
     int rh;   
 
+    TM1637_clear();
     rh = AHT10_Read_Hum();
     TM1637_display_digit(0, (uint8_t)(dec_to_bcd(rh) & 0xF0) >> 4);
     TM1637_display_digit(1, (uint8_t)(dec_to_bcd(rh) & 0x0F));
