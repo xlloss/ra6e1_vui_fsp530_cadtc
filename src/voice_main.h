@@ -172,6 +172,8 @@
 #define ID_STAGE_1_0 100
 #define ID_STAGE_2_0 200
 #define ID_STAGE_2_1 300
+#define ID_STAGE_2_2 400
+#define ID_STAGE_2_3 500
 
 /*******************************************************************************
  Exported global functions

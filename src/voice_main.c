@@ -57,6 +57,7 @@ static void PlaySpeexByID(const BYTE *pbySpeexDataBegin, int nMapID);
 
 #include "AudioRecord.h"
 
+#include "rtc_ep.h"
 /*******************************************************************************
  Macro definitions
 *******************************************************************************/
@@ -176,7 +177,22 @@ static int  SD_Delete_All();
 static void EnableAllGroupModel(HANDLE hCybModel, HANDLE hDSpotter);
 static void SaveSDModel();
 static void PrintSDModelInfor();
+#else
+static volatile bool g_ButtonPressed = false;
 #endif
+
+rtc_time_t g_current_time =
+{
+ .tm_hour    =  0,
+ .tm_isdst   =  0,
+ .tm_mday    =  0,
+ .tm_min     =  0,
+ .tm_mon     =  0,
+ .tm_sec     =  0,
+ .tm_wday    =  0,
+ .tm_yday    =  0,
+ .tm_year    =  0,
+};
 
 /*******************************************************************************
 * Function Name   : voice_main
@@ -187,6 +203,7 @@ static void PrintSDModelInfor();
 void voice_main(void)
 {
     int nRet = true;
+    fsp_err_t err;
 
     TM1637_init(1/*enable*/, 1/*brightness*/);
     TM1637_clear();
@@ -194,6 +211,18 @@ void voice_main(void)
     voice_init();
     AHT10_Reset();
 
+    /* Initialize RTC driver */
+    DBG_UART_TRACE("RTC INIT +++\r\n");
+    err = rtc_init();
+    if (FSP_SUCCESS != err)
+        DBG_UART_TRACE("RTC INIT FAILED\r\n");
+
+    err = set_rtc_calendar_time();
+    if (FSP_SUCCESS != err)
+        DBG_UART_TRACE("RTC SET FAILED\r\n");
+
+    //get_rtc_calendar_time();
+    DBG_UART_TRACE("RTC INIT ---\r\n");
     while (true == nRet)
     {
         nRet = voice_loop();
@@ -255,6 +284,20 @@ static void voice_init(void)
         DBG_UART_TRACE("\r\n[Error] R_ICU_ExternalIrqEnable\r\n");
         __BKPT(0);
     }
+#else
+    err = R_ICU_ExternalIrqOpen(&g_irq_button_ctrl, &g_irq_button_cfg);
+    if (FSP_SUCCESS != err)
+    {
+        DBG_UART_TRACE("\r\n[Error] R_ICU_ExternalIrqOpen\r\n");
+        __BKPT(0);
+    }
+
+    err = R_ICU_ExternalIrqEnable(&g_irq_button_ctrl);
+    if (FSP_SUCCESS != err)
+    {
+        DBG_UART_TRACE("\r\n[Error] R_ICU_ExternalIrqEnable\r\n");
+        __BKPT(0);
+    }
 #endif
     err = AudioRecordInit();
     if (FSP_SUCCESS != err)
@@ -307,6 +350,7 @@ void show_temp()
     temp = AHT10_Read_Temp();
     TM1637_display_digit(0, (uint8_t)(dec_to_bcd(temp) & 0xF0) >> 4);
     TM1637_display_digit(1, (uint8_t)(dec_to_bcd(temp) & 0x0F));
+    TM1637_display_colon(0);
     TM1637_display_segments(3, 0x39);
 }
 
@@ -320,6 +364,23 @@ void show_hum()
     TM1637_display_digit(1, (uint8_t)(dec_to_bcd(rh) & 0x0F));
     TM1637_display_segments(2, 0x77);
     TM1637_display_segments(3, 0x76);
+    TM1637_display_colon(0);
+}
+
+void show_time(rtc_time_t *get_rtc_time)
+{
+    TM1637_display_digit(0, (uint8_t)(dec_to_bcd(get_rtc_time->tm_hour) & 0xF0) >> 4);
+    TM1637_display_digit(1, (uint8_t)(dec_to_bcd(get_rtc_time->tm_hour) & 0x0F));
+    TM1637_display_digit(2, (uint8_t)(dec_to_bcd(get_rtc_time->tm_min) & 0xF0) >> 4);
+    TM1637_display_digit(3, (uint8_t)(dec_to_bcd(get_rtc_time->tm_min) & 0x0F));
+}
+
+void show_year(rtc_time_t *get_rtc_time)
+{
+    TM1637_display_digit(0, (uint8_t)((dec_to_bcd(get_rtc_time->tm_year) & 0xF000) >> 12));
+    TM1637_display_digit(1, (uint8_t)((dec_to_bcd(get_rtc_time->tm_year) & 0x0F00) >> 8));
+    TM1637_display_digit(2, (uint8_t)((dec_to_bcd(get_rtc_time->tm_year) & 0x00F0) >> 4));
+    TM1637_display_digit(3, (uint8_t)((dec_to_bcd(get_rtc_time->tm_year) & 0x000F)));
 }
 /*******************************************************************************
 * Function Name   : voice_loop
@@ -338,6 +399,8 @@ static bool voice_loop(void)
     static  int s_nLedTurnOnCount = 0;
     static  int s_nCommandRecordSample = 0;
     static  int s_nCommandRecognizeLimit = COMMAND_STAGE_TIME_MIN;
+    rtc_time_t get_rtc_time;
+
 #ifdef SUPPORT_VOICE_TAG
     if (g_bVoiceTagButtonPressed)
     {
@@ -658,6 +721,15 @@ static bool voice_loop(void)
             trigger_enable = 1;
             show_hum();
             break;
+        case ID_STAGE_2_2:
+            get_rtc_calendar_time(&get_rtc_time);
+            show_time(&get_rtc_time);
+            break;
+        case ID_STAGE_2_3:
+            get_rtc_calendar_time(&get_rtc_time);
+            show_year(&get_rtc_time);
+            break;
+
     #if defined(SUPPORT_VOICE_TAG)
         case DELETE_ALL_VOICE_TAG_ID:
             if (SD_Delete_All() == 0)
@@ -1086,6 +1158,13 @@ void OnDataReadCompleteCallback(void)
     UartAsyncRead(g_byaUartRxBuffer, 1, OnDataReadCompleteCallback);
 }
 
+
+void g_irq_button_cb(external_irq_callback_args_t *p_args)
+{
+    FSP_PARAMETER_NOT_USED(p_args);
+    g_ButtonPressed = true;
+    DBG_UART_TRACE("g_irq_button_cb\r\n");
+}
 
 #ifdef SUPPORT_VOICE_TAG
 
